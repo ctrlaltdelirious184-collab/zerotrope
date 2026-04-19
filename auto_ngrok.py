@@ -21,7 +21,14 @@ try:
     
     config = open("config.js", "r", encoding="utf-8").read()
     config = re.sub(r"window\.ZEROTROPE_PIPELINE_URL\s*=\s*'.*';", f"window.ZEROTROPE_PIPELINE_URL = '{url}';", config)
-    open("config.js", "w", encoding="utf-8").write(config)
-    print("SUCCESS: config.js has been perfectly updated!")
+    
+    # Auto-Deploy to GitHub
+    print("🚀 Committing and pushing to GitHub to trigger Vercel deployment...")
+    subprocess.run(["git", "add", "config.js"])
+    subprocess.run(["git", "commit", "-m", f"Auto-sync Ngrok Webhook"])
+    subprocess.run(["git", "push"])
+    
+    print("\n🎉 SUCCESS: config.js has been perfectly updated and pushed to Vercel!")
+    print("⚠️  LEAVE THIS TERMINAL OPEN. If you close this, the Ngrok tunnel dies.\n")
 except Exception as e:
     print(f"FAILED: {e}")

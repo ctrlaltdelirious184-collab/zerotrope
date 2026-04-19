@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://intimate-holdem-bicycle-innocent.trycloudflare.com/$1"
+    }
+  ]
+}

@@ -27,21 +27,21 @@ def auto_start_cloudflare():
     if url:
         print(f"\n✅ SECURE URL ACQUIRED: {url}")
         
-        # Patch config.js
-        with open("config.js", "r", encoding="utf-8") as f:
+        # Patch vercel.json instead of config.js
+        with open("vercel.json", "r", encoding="utf-8") as f:
             config = f.read()
             
-        config = re.sub(r"window\.ZEROTROPE_PIPELINE_URL\s*=\s*'.*';", f"window.ZEROTROPE_PIPELINE_URL = '{url}';", config)
+        config = re.sub(r'"destination": "https://[a-zA-Z0-9-]+\.trycloudflare\.com/\$1"', f'"destination": "{url}/$1"', config)
         
-        with open("config.js", "w", encoding="utf-8") as f:
+        with open("vercel.json", "w", encoding="utf-8") as f:
             f.write(config)
             
-        print("✅ config.js updated automatically!")
+        print("✅ vercel.json updated automatically with the proxy logic!")
         print("🚀 Committing and pushing to GitHub to trigger Vercel deployment...")
         
         # Auto-Deploy to GitHub
-        subprocess.run(["git", "add", "config.js"])
-        subprocess.run(["git", "commit", "-m", f"Auto-sync Cloudflare Webhook"])
+        subprocess.run(["git", "add", "vercel.json"])
+        subprocess.run(["git", "commit", "-m", f"Auto-sync Cloudflare Vercel Proxy"])
         subprocess.run(["git", "push"])
         
         print("\n🎉 ALL DONE! Your Vercel frontend will automatically update in 30 seconds.")
