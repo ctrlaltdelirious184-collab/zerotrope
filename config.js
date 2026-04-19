@@ -5,4 +5,4 @@
 // 3. You will NEVER have to change this file or upload it to Netlify again.
 // ─────────────────────────────────────────────────────────
 
-window.ZEROTROPE_PIPELINE_URL = 'https://intimate-holdem-bicycle-innocent.trycloudflare.com';
+window.ZEROTROPE_PIPELINE_URL = 'https://humidity-circus-attribute-various.trycloudflare.com';
