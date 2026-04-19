@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Pulse Report | {{ business_name }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #6366f1;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(135deg, #fff 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .markdown-content {
+            white-space: pre-wrap;
+        }
+
+        .vision-critique {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Marketing Pulse Report</h1>
+            <p class="subtitle">Autonomous AI Branding & Strategy for <strong>{{ business_name or 'Your Business' }}</strong></p>
+        </header>
+
+        <div class="grid">
+            <!-- Competitive Intelligence -->
+            <section class="card" style="border-left: 5px solid #f59e0b;">
+                <h2><span>🌩️</span> Competitive Edge & Unique Angle</h2>
+                <div class="markdown-content">{{ intel_brief }}</div>
+            </section>
+
+            <!-- Brand Audit -->
+            <section class="card">
+                <h2><span>🔍</span> Brand Identity & Positioning Audit</h2>
+                <div class="markdown-content">{{ brand_audit }}</div>
+                {% if visual_critique %}
+                <div class="vision-critique">
+                    <strong>Visual Snapshot Analysis:</strong><br>
+                    {{ visual_critique }}
+                </div>
+                {% endif %}
+            </section>
+
+            <!-- Target Personas -->
+            <section class="card">
+                <h2><span>👥</span> Target Audience Personas</h2>
+                <div class="markdown-content">{{ audience_data }}</div>
+            </section>
+
+            <!-- Growth Roadmap -->
+            <section class="card">
+                <h2><span>🚀</span> 30/60/90 Day Roadmap</h2>
+                <div class="markdown-content">{{ strategy_data }}</div>
+            </section>
+
+            <!-- Content Vault -->
+            <section class="card">
+                <h2><span>✍️</span> High-Conversion Content Vault</h2>
+                <div class="markdown-content">{{ content_data }}</div>
+            </section>
+
+            <!-- AEO Strategy -->
+            <section class="card" style="border-bottom: 5px solid #10b981;">
+                <h2><span>🤖</span> AEO & AI Search Optimization</h2>
+                <p>Strategically designed to dominate AI-driven search results (Perplexity, Gemini, SGE).</p>
+                <div class="vision-critique" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981;">
+                    <strong>Semantic Anchoring:</strong> Focus on direct answer snippets and schema entities to increase AI 'authority' score.
+                </div>
+            </section>
+
+            {% if website_path %}
+            <!-- Web Preview -->
+            <section class="card" style="border-color: #10b981;">
+                <h2><span>🌐</span> Custom Landing Page Built</h2>
+                <p>We've architected a full landing page for you based on the brand identity generated above.</p>
+                <div class="vision-critique" style="background: rgba(16, 185, 129, 0.1); border-color: #10b981;">
+                    <strong>Output Location:</strong><br>
+                    <code>{{ website_path }}</code>
+                </div>
+            </section>
+            {% endif %}
+        </div>
+
+        <footer>
+            Built with 💜 by Antigravity Agentic Marketing Pipeline
+        </footer>
+    </div>
+</body>
+</html>
