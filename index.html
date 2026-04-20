@@ -1649,7 +1649,8 @@
     messages.scrollTop = messages.scrollHeight;
 
     try {
-      const res = await fetch(`${PIPELINE_URL}/audit`, {
+      // Step 1: Fire off the audit and get a job_id immediately
+      const startRes = await fetch(`${PIPELINE_URL}/audit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1659,7 +1660,27 @@
         body: JSON.stringify({ input_text: userInput })
       });
 
-      const data = await res.json();
+      const startData = await startRes.json();
+      if (!startData.job_id) throw new Error('No job ID returned');
+
+      const jobId = startData.job_id;
+
+      // Step 2: Poll /status/{job_id} every 2.5 seconds until done
+      let data = null;
+      for (let i = 0; i < 40; i++) {  // max ~100 seconds of waiting
+        await new Promise(r => setTimeout(r, 2500));
+        const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
+          headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': 'true' }
+        });
+        const pollData = await pollRes.json();
+        if (pollData.status !== 'pending') {
+          data = pollData;
+          break;
+        }
+      }
+
+      if (!data) throw new Error('Audit timed out after 100 seconds');
+
       typing.remove();
 
       const botMsg = document.createElement('div');

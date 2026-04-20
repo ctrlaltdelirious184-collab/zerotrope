@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import uuid
 import os
 import httpx
+import threading
 
 # Import core Zerotrope logic
 from agents.research import ResearchAgent
@@ -58,6 +59,15 @@ class AuditResponse(BaseModel):
     unique_angle: str = ""
 
 
+class AuditJobResponse(BaseModel):
+    job_id: str
+    status: str
+
+
+# In-memory job store: job_id -> result dict
+job_store: dict = {}
+
+
 def send_discord_notification(biz_name, primary_gap, narrative, input_url):
     """Sends a surgical diagnostic alert to the Zerotrope Discord channel."""
     if not DISCORD_TOKEN:
@@ -95,53 +105,86 @@ def read_root():
     return {"status": "Zerotrope Strategic Bridge is Online"}
 
 
-@app.post("/audit", response_model=AuditResponse)
-def trigger_audit(request: AuditRequest, background_tasks: BackgroundTasks, x_api_key: str = Header(None)):
+def run_audit_job(job_id: str, input_text: str):
+    """Runs the full audit pipeline in a background thread and stores the result."""
+    try:
+        request = AuditRequest(input_text=input_text)
+        # reuse the core logic below
+        result = _execute_audit(input_text)
+        job_store[job_id] = result
+    except Exception as e:
+        print(f"[Job Error] {e}")
+        job_store[job_id] = {
+            "status": "error",
+            "message": "Diagnostic system timeout.",
+            "narrative_summary": "I'm having trouble analyzing this business right now. Please try again.",
+            "unique_angle": ""
+        }
+
+
+@app.post("/audit", response_model=AuditJobResponse)
+def trigger_audit(request: AuditRequest, x_api_key: str = Header(None)):
     # Security gate
     if x_api_key != API_KEY:
         raise HTTPException(status_code=403, detail="Unauthorized")
 
+    job_id = str(uuid.uuid4())
+    job_store[job_id] = None  # mark as pending
+    thread = threading.Thread(target=run_audit_job, args=(job_id, request.input_text), daemon=True)
+    thread.start()
+    return AuditJobResponse(job_id=job_id, status="pending")
+
+
+@app.get("/status/{job_id}", response_model=AuditResponse)
+def get_audit_status(job_id: str, x_api_key: str = Header(None)):
+    if x_api_key != API_KEY:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+    if job_id not in job_store:
+        raise HTTPException(status_code=404, detail="Job not found")
+    result = job_store[job_id]
+    if result is None:
+        return AuditResponse(status="pending", message="Processing...", narrative_summary="", unique_angle="")
+    return AuditResponse(**result)
+
+
+def _execute_audit(input_text: str) -> dict:
+    """Core audit logic extracted for background thread use."""
     try:
         # 1. Intelligence gathering — two-pass pipeline
-        research_results = ResearchAgent().run(request.input_text)
+        research_results = ResearchAgent().run(input_text)
         intel_results = IntelligenceAgent().run(research_results)
 
         # Clean business name — use AI-extracted name first, fallback to title tag, then URL
         raw_title = research_results.get("raw_data", {}).get("title", "")
-        
-        # Extract clean name from URL as last resort
+
         from urllib.parse import urlparse
-        parsed_url = urlparse(request.input_text)
+        parsed_url = urlparse(input_text)
         url_domain = parsed_url.netloc.replace("www.", "").split(".")[0].replace("-", " ").title()
 
         biz_name = (
             intel_results.get("business_name")
             or (raw_title.split("|")[0].strip() if raw_title else "")
             or url_domain
-            or request.input_text
+            or input_text
         )
-        # Final sanity check — reject placeholder text Gemma sometimes outputs
         placeholder_phrases = [
-            "no brand name", "brand name not", "not provided", "unknown", 
+            "no brand name", "brand name not", "not provided", "unknown",
             "n/a", "none", "business name", "company name"
         ]
         if not biz_name or len(biz_name.strip()) < 2 or any(p in biz_name.lower() for p in placeholder_phrases):
-            biz_name = url_domain or request.input_text
+            biz_name = url_domain or input_text
 
         primary_gap = intel_results.get("primary_gap", "commodity positioning with no differentiation")
         comp_insight = intel_results.get("competitor_insight", "rivals are using outdated templates")
         usp = intel_results.get("contrarian_usp", "a foundational strategic overhaul")
         terminology = intel_results.get("terminology", "client")
         owner_name = intel_results.get("owner_name", "")
-        business_type = intel_results.get("business_type", "business")
         gap_evidence = intel_results.get("gap_evidence", "")
         no_gap_found = intel_results.get("no_gap_found", False)
         unique_angle = f"GAP: {primary_gap} | USP: {usp} | COMP: {comp_insight}"
 
-        # 2. Zerotrope Humanizer — generates the prospect-facing Hook
-        # Handle honest no-gap scenario
+        # 2. Zerotrope Humanizer
         if no_gap_found:
-            owner_line = f"Dr. {owner_name}" if owner_name else biz_name
             narrative = (
                 f"{biz_name} has a well-built site — the CTAs are specific, the credentials are visible, "
                 f"and the messaging is clear enough to convert visitors who find you. "
@@ -160,11 +203,11 @@ Write a response addressed DIRECTLY to the business owner.
 AUDIT FACTS:
 - Business Name: {biz_name}
 - Primary Gap Found: {primary_gap}
-- Gap Evidence: {intel_results.get("gap_evidence", "")}
+- Gap Evidence: {gap_evidence}
 - Their Opportunity: {usp}
 
 YOUR OBJECTIVE:
-Point out a real, painful problem on their site accurately—but DO NOT reveal the complete solution. 
+Point out a real, painful problem on their site accurately—but DO NOT reveal the complete solution.
 The goal is to create tension and curiosity (a "hook"). If you tell them how to fix it, they won't need us.
 
 CRITICAL: NEVER start your sentences with phrases like "The specific finding is...", "I found that...", or "For instance...". Just state the observation aggressively.
@@ -181,7 +224,7 @@ Sentence 1 (The Observation):
 
 Sentence 2 (The Cost & The Hook):
 - Tell them what the vagueness is costing them right now (e.g. lost prospects, lost search visibility).
-- Contrast their site against what top competitors do. DO NOT just repeat marketing buzzwords. 
+- Contrast their site against what top competitors do. DO NOT just repeat marketing buzzwords.
 - Your sentence MUST be structurally similar to this formula: "Right now, your competitors are capturing those high-value visitors because they clearly position their actual expertise, and you're leaving your best assets buried."
 
 Sentence 3 (The Close):
@@ -203,61 +246,39 @@ UNIVERSAL RULES:
 - Keep sentences punchy. No em-dashes. No "we".
 - Never invent evidence. Only use the Audit Facts provided.
 """
-
-        # Ollama call via OllamaClient wrapper
             raw_narrative = ollama_client.chat(humanize_prompt)
-
-            # Strip AI preambles and self-referential lines
             narrative = raw_narrative.split(":")[-1].strip() if ":" in raw_narrative[:100] else raw_narrative
 
-        # Remove lines where the model talks to itself
             bad_phrases = [
-            "Let me know if this meets",
-            "Here are the 3-sentence",
-            "Here is the",
-            "I hope this",
-            "Please let me know",
-            "Feel free to",
-            "Note:",
-            "This response",
-            "As requested",
-            "Based on the",
-            "I've got to give you credit",
-            "I have to give you credit",
-            "Credit where credit is due",
-            "To be fair",
-            "I must say",
-            "It's worth noting",
-        ]
+                "Let me know if this meets", "Here are the 3-sentence", "Here is the",
+                "I hope this", "Please let me know", "Feel free to", "Note:",
+                "This response", "As requested", "Based on the",
+                "I've got to give you credit", "I have to give you credit",
+                "Credit where credit is due", "To be fair", "I must say", "It's worth noting",
+            ]
             lines = narrative.split("\n")
-            clean_lines = []
-            for line in lines:
-                stripped = line.strip()
-                if not stripped:
-                    continue
-                if any(phrase.lower() in stripped.lower() for phrase in bad_phrases):
-                    continue
-                clean_lines.append(stripped)
+            clean_lines = [l.strip() for l in lines if l.strip() and not any(p.lower() in l.lower() for p in bad_phrases)]
             narrative = " ".join(clean_lines).replace('"', '').strip()
 
         # 3. Persistence & alerts
-        db.save_lead(str(uuid.uuid4()), request.input_text, unique_angle)
-        background_tasks.add_task(send_discord_notification, biz_name, primary_gap, narrative, request.input_text)
+        db.save_lead(str(uuid.uuid4()), input_text, unique_angle)
+        send_discord_notification(biz_name, primary_gap, narrative, input_text)
 
-        return AuditResponse(
-            status="success",
-            message="Audit Complete",
-            narrative_summary=narrative,
-            unique_angle=unique_angle
-        )
+        return {
+            "status": "success",
+            "message": "Audit Complete",
+            "narrative_summary": narrative,
+            "unique_angle": unique_angle
+        }
 
     except Exception as e:
         print(f"[Bridge Error] {e}")
-        return AuditResponse(
-            status="error",
-            message="Diagnostic system timeout.",
-            narrative_summary="I'm having trouble analyzing this business right now. Please try again."
-        )
+        return {
+            "status": "error",
+            "message": "Diagnostic system timeout.",
+            "narrative_summary": "I'm having trouble analyzing this business right now. Please try again.",
+            "unique_angle": ""
+        }
 
 
 if __name__ == "__main__":
