@@ -1628,6 +1628,16 @@
   const PIPELINE_URL = window.ZEROTROPE_PIPELINE_URL || 'https://extract-quote-game-induced.trycloudflare.com';
   // ─────────────────────────────────────────────────
 
+  const PROGRESS_STAGES = [
+    "Scanning homepage...",
+    "Crawling subpages...",
+    "Extracting CTAs and pricing signals...",
+    "Running gap analysis — Pass 1...",
+    "Validating findings — Pass 2...",
+    "Generating your Hook...",
+    "Almost done..."
+  ];
+
   async function sendAudit() {
     const input = document.getElementById('chatInput');
     const userInput = input.value.trim();
@@ -1641,58 +1651,60 @@
     messages.appendChild(userMsg);
     input.value = '';
 
+    // Typing indicator with live progress label
+    const typingWrap = document.createElement('div');
+    typingWrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;align-self:flex-start;';
     const typing = document.createElement('div');
     typing.className = 'chat-typing';
     typing.style.display = 'flex';
     typing.innerHTML = '<span></span><span></span><span></span>';
-    messages.appendChild(typing);
+    const progressLabel = document.createElement('div');
+    progressLabel.style.cssText = 'font-size:11px;color:var(--muted);letter-spacing:0.08em;';
+    progressLabel.textContent = PROGRESS_STAGES[0];
+    typingWrap.appendChild(typing);
+    typingWrap.appendChild(progressLabel);
+    messages.appendChild(typingWrap);
     messages.scrollTop = messages.scrollHeight;
 
+    // Cycle progress messages while waiting
+    let stageIdx = 0;
+    const stageInterval = setInterval(() => {
+      stageIdx = Math.min(stageIdx + 1, PROGRESS_STAGES.length - 1);
+      progressLabel.textContent = PROGRESS_STAGES[stageIdx];
+    }, 12000);
+
     try {
-      // Step 1: Fire off the audit and get a job_id immediately
-      const startRes = await fetch(`${PIPELINE_URL}/audit`, {
+      // Step 1 — Submit job
+      const submitRes = await fetch(`${PIPELINE_URL}/audit`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY,
-          'ngrok-skip-browser-warning': 'true'
-        },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
         body: JSON.stringify({ input_text: userInput })
       });
+      const submitData = await submitRes.json();
+      const jobId = submitData.job_id;
 
-      const startData = await startRes.json();
-      if (!startData.job_id) throw new Error('No job ID returned');
-
-      const jobId = startData.job_id;
-
-      // Step 2: Poll /status/{job_id} every 3 seconds until done (max 3 minutes)
+      // Step 2 — Poll for result
       let data = null;
       for (let i = 0; i < 60; i++) {
         await new Promise(r => setTimeout(r, 3000));
-        try {
-          const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
-            headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': 'true' }
-          });
-          const pollData = await pollRes.json();
-          if (pollData.status !== 'pending') {
-            data = pollData;
-            break;
-          }
-        } catch(pollErr) {
-          // single poll failed — keep waiting, don't abort
-          console.warn('Poll attempt failed, retrying...', pollErr);
+        const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
+          headers: { 'x-api-key': API_KEY }
+        });
+        const pollData = await pollRes.json();
+        if (pollData.status !== 'pending') {
+          data = pollData;
+          break;
         }
       }
 
-      if (!data) throw new Error('Audit timed out after 100 seconds');
-
-      typing.remove();
+      clearInterval(stageInterval);
+      typingWrap.remove();
 
       const botMsg = document.createElement('div');
       botMsg.className = 'chat-msg chat-msg-bot';
       botMsg.style.whiteSpace = 'pre-line';
 
-      const fullText = data.status === 'success'
+      const fullText = data && data.status === 'success'
         ? data.narrative_summary + '\n\nReach us at architect@zerotrope.co to get your full report.'
         : 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
 
