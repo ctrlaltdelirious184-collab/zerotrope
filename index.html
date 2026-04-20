@@ -34,7 +34,7 @@
     font-weight: 300;
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
+    cursor: default;
   }
 
   /* Custom cursor */
@@ -246,7 +246,7 @@
     text-transform: uppercase;
     text-decoration: none;
     border: none;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.2s, transform 0.2s;
     display: inline-block;
   }
@@ -631,7 +631,7 @@
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.2s;
-    cursor: none;
+    cursor: pointer;
   }
   .pricing-btn-outline {
     border: 1px solid var(--border);
@@ -698,7 +698,7 @@
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.2s;
-    cursor: none;
+    cursor: pointer;
   }
   .contact-btn-email {
     background: var(--accent);
@@ -757,7 +757,7 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    cursor: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -910,7 +910,7 @@
     text-transform: uppercase;
     padding: 4px 10px;
     border-radius: 2px;
-    cursor: none;
+    cursor: pointer;
     font-family: var(--font-body);
     transition: all 0.2s;
     display: flex;
@@ -1023,7 +1023,7 @@
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    cursor: none;
+    cursor: pointer;
     font-family: var(--font-body);
     transition: background 0.2s;
     margin-top: 4px;
@@ -1043,7 +1043,7 @@
     background: var(--accent);
     border-radius: 50%;
     border: none;
-    cursor: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1089,7 +1089,7 @@
     background: none;
     border: none;
     color: var(--muted);
-    cursor: none;
+    cursor: pointer;
     font-size: 18px;
     line-height: 1;
     transition: color 0.2s;
@@ -1175,7 +1175,7 @@
     border: none;
     border-radius: 2px;
     padding: 0.6rem 1rem;
-    cursor: none;
+    cursor: pointer;
     font-size: 14px;
     transition: background 0.2s;
     color: var(--black);
@@ -1205,8 +1205,7 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+
 
 <!-- NAV -->
 <nav id="nav">
@@ -1554,17 +1553,7 @@
 </div>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
-    }, 80);
-  });
+  // Custom cursor disabled for compatibility
 
   // Nav scroll
   window.addEventListener('scroll', () => {
@@ -1822,7 +1811,6 @@
     messages.appendChild(typingWrap);
     messages.scrollTop = messages.scrollHeight;
 
-    // Cycle progress messages while waiting
     let stageIdx = 0;
     const stageInterval = setInterval(() => {
       stageIdx = Math.min(stageIdx + 1, PROGRESS_STAGES.length - 1);
@@ -1830,7 +1818,7 @@
     }, 12000);
 
     try {
-      // Step 1 — Submit job
+      // Submit job
       const submitRes = await fetch(`${PIPELINE_URL}/audit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
@@ -1839,7 +1827,7 @@
       const submitData = await submitRes.json();
       const jobId = submitData.job_id;
 
-      // Step 2 — Poll for result
+      // Poll for result
       let data = null;
       for (let i = 0; i < 60; i++) {
         await new Promise(r => setTimeout(r, 3000));
@@ -1856,78 +1844,36 @@
       clearInterval(stageInterval);
       typingWrap.remove();
 
-      const botMsg = document.createElement('div');
-      botMsg.className = 'chat-msg chat-msg-bot';
-      botMsg.style.whiteSpace = 'pre-line';
-
       if (data && data.status === 'success') {
-        // Show teaser first, gate full Hook behind name/email
+        window._pendingHook = data.narrative_summary;
+        window._pendingJobId = jobId;
+
         const teaserMsg = document.createElement('div');
         teaserMsg.className = 'chat-msg chat-msg-bot';
-        teaserMsg.textContent = "Your audit is complete. Enter your name and email below to receive the full intelligence report.";
+        teaserMsg.textContent = 'Your audit is complete. Enter your name and email below to receive the full intelligence report.';
         messages.appendChild(teaserMsg);
 
-        // Lead capture form
         const form = document.createElement('div');
         form.className = 'chat-lead-form';
+        form.id = 'leadCaptureForm';
         form.innerHTML = `
           <div class="chat-lead-title">Get your free report</div>
           <div class="chat-lead-subtitle">We'll send the full audit to your inbox — no spam, ever.</div>
           <input type="text" class="chat-lead-input" id="leadName" placeholder="Your name" />
           <input type="email" class="chat-lead-input" id="leadEmail" placeholder="Your email address" />
-          <button class="chat-lead-submit" id="leadSubmit" onclick="submitLead('${data.job_id}', '${userInput}')">Send My Free Report →</button>
+          <button class="chat-lead-submit" id="leadSubmit" onclick="submitLead('${jobId}', '${userInput.replace(/'/g, "\'")}')">Send My Free Report →</button>
         `;
         messages.appendChild(form);
-        messages.scrollTop = messages.scrollHeight;
-
-        // Store the hook for later reveal
-        window._pendingHook = data.narrative_summary;
-        window._pendingJobId = data.job_id;
-        window._pendingUrl = userInput;
-
       } else {
-        const botMsg = document.createElement('div');
-        botMsg.className = 'chat-msg chat-msg-bot';
-        botMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
-        messages.appendChild(botMsg);
+        const errMsg = document.createElement('div');
+        errMsg.className = 'chat-msg chat-msg-bot';
+        errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
+        messages.appendChild(errMsg);
       }
 
-      if (data && data.status === 'success') {
-        // placeholder — contact buttons added after form submit
-        if (false) {
-
-        // Contact buttons
-        const contactBlock = document.createElement('div');
-        contactBlock.className = 'chat-contact-btns';
-        contactBlock.innerHTML = `
-          <div class="chat-contact-btns-label">Ready to close the gap?</div>
-          <div class="chat-contact-row">
-            <a href="mailto:architect@zerotrope.co?subject=Growth Roadmap Request&body=Hi, I just ran the Zerotrope audit and I'd love to see the full report." class="chat-contact-link primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-              Email us
-            </a>
-          </div>
-          <div class="chat-contact-row">
-            <a href="https://instagram.com/zerotrope" target="_blank" class="chat-contact-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              DM on Instagram
-            </a>
-            <a href="https://x.com/zerotropeco" target="_blank" class="chat-contact-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.858L1.255 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              DM on X
-            </a>
-          </div>
-          <div class="chat-contact-row">
-            <a class="chat-contact-link soon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Book a call — coming soon
-            </a>
-          </div>
-        `;
-        messages.appendChild(contactBlock);
-      }
     } catch(err) {
-      typing.remove();
+      clearInterval(stageInterval);
+      typingWrap.remove();
       const errMsg = document.createElement('div');
       errMsg.className = 'chat-msg chat-msg-bot';
       errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
