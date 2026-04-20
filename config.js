@@ -5,4 +5,4 @@
 // 3. You will NEVER have to change this file or upload it to Netlify again.
 // ─────────────────────────────────────────────────────────
 
-window.ZEROTROPE_PIPELINE_URL = '/api';
+window.ZEROTROPE_PIPELINE_URL = 'https://api.zerotrope.co';
