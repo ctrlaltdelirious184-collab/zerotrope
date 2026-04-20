@@ -1665,17 +1665,22 @@
 
       const jobId = startData.job_id;
 
-      // Step 2: Poll /status/{job_id} every 2.5 seconds until done
+      // Step 2: Poll /status/{job_id} every 3 seconds until done (max 3 minutes)
       let data = null;
-      for (let i = 0; i < 40; i++) {  // max ~100 seconds of waiting
-        await new Promise(r => setTimeout(r, 2500));
-        const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
-          headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': 'true' }
-        });
-        const pollData = await pollRes.json();
-        if (pollData.status !== 'pending') {
-          data = pollData;
-          break;
+      for (let i = 0; i < 60; i++) {
+        await new Promise(r => setTimeout(r, 3000));
+        try {
+          const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
+            headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': 'true' }
+          });
+          const pollData = await pollRes.json();
+          if (pollData.status !== 'pending') {
+            data = pollData;
+            break;
+          }
+        } catch(pollErr) {
+          // single poll failed — keep waiting, don't abort
+          console.warn('Poll attempt failed, retrying...', pollErr);
         }
       }
 
