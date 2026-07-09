@@ -45,7 +45,7 @@ class ResearchAgent:
         real_links = self._extract_links_from_homepage(base_url, scraped_data)
         print(f"[Research] Found {len(real_links)} internal links on homepage")
 
-        for url in real_links:
+        for url in real_links[:8]:
             try:
                 scraped = self.scraper.scrape_static(url)
                 if scraped and scraped.get("text") and len(scraped.get("text", "")) > 200:
@@ -105,10 +105,7 @@ class ResearchAgent:
             results["subpages"] = subpages
             print(f"[Research] Found {len(subpages)} subpages: {list(subpages.keys())}")
 
-            # Take screenshot for vision agent
-            screenshot_path = os.path.join(os.getcwd(), "temp_homepage.png")
-            if self.scraper.get_screenshot(input_data, screenshot_path):
-                results["screenshot_path"] = screenshot_path
+            # Screenshot removed — prospects are emailed their report directly
         else:
             print("[Research] Processing text description...")
             results["raw_data"] = {"text": input_data}

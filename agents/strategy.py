@@ -1,8 +1,8 @@
-from utils.ollama_client import OllamaClient
+from utils.ai_client import AIClient
 
 class StrategyAgent:
     def __init__(self):
-        self.client = OllamaClient()
+        self.client = AIClient()
 
     def run(self, research_data, brand_data, audience_data):
         """

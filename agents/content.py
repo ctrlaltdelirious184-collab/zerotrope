@@ -1,8 +1,8 @@
-from utils.ollama_client import OllamaClient
+from utils.ai_client import AIClient
 
 class ContentAgent:
     def __init__(self):
-        self.client = OllamaClient()
+        self.client = AIClient()
 
     def run(self, strategy_data, audience_data):
         """

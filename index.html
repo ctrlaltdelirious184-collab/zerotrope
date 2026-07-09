@@ -34,7 +34,7 @@
     font-weight: 300;
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
+    cursor: default;
   }
 
   /* Custom cursor */
@@ -246,7 +246,7 @@
     text-transform: uppercase;
     text-decoration: none;
     border: none;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.2s, transform 0.2s;
     display: inline-block;
   }
@@ -631,7 +631,7 @@
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.2s;
-    cursor: none;
+    cursor: pointer;
   }
   .pricing-btn-outline {
     border: 1px solid var(--border);
@@ -698,7 +698,7 @@
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.2s;
-    cursor: none;
+    cursor: pointer;
   }
   .contact-btn-email {
     background: var(--accent);
@@ -757,7 +757,7 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    cursor: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -910,7 +910,7 @@
     text-transform: uppercase;
     padding: 4px 10px;
     border-radius: 2px;
-    cursor: none;
+    cursor: pointer;
     font-family: var(--font-body);
     transition: all 0.2s;
     display: flex;
@@ -973,6 +973,64 @@
   }
   .chat-contact-link svg { width: 13px; height: 13px; flex-shrink: 0; }
 
+
+  .chat-lead-form {
+    background: var(--surface2);
+    border: 1px solid rgba(200,245,66,0.2);
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 8px;
+    animation: fadeUp 0.4s ease both;
+  }
+  .chat-lead-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .chat-lead-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .chat-lead-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 8px 10px;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+  .chat-lead-input:focus { border-color: rgba(200,245,66,0.4); }
+  .chat-lead-input::placeholder { color: var(--muted); }
+  .chat-lead-submit {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    border-radius: 2px;
+    padding: 9px;
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .chat-lead-submit:hover { background: var(--accent2); }
+  .chat-lead-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
   /* CHAT WIDGET */
   .chat-widget {
     position: fixed;
@@ -985,7 +1043,7 @@
     background: var(--accent);
     border-radius: 50%;
     border: none;
-    cursor: none;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1031,7 +1089,7 @@
     background: none;
     border: none;
     color: var(--muted);
-    cursor: none;
+    cursor: pointer;
     font-size: 18px;
     line-height: 1;
     transition: color 0.2s;
@@ -1117,7 +1175,7 @@
     border: none;
     border-radius: 2px;
     padding: 0.6rem 1rem;
-    cursor: none;
+    cursor: pointer;
     font-size: 14px;
     transition: background 0.2s;
     color: var(--black);
@@ -1147,8 +1205,7 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+
 
 <!-- NAV -->
 <nav id="nav">
@@ -1177,14 +1234,14 @@
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-tag">AI-Powered Growth Intelligence</div>
+      <div class="hero-tag">Premium Web Design + AI Intelligence</div>
       <h1 class="hero-headline">
-        Eliminate<br/>the <em>Trope.</em><br/>Own the Space.
+        Websites<br/>that <em>Close.</em><br/>Not Just Look Good.
       </h1>
-      <p class="hero-sub">We scan your website in 30 seconds and show you exactly why you're losing leads to competitors — then hand you the roadmap to fix it.</p>
+      <p class="hero-sub">Most web designers hand you something pretty. We hand you something that converts — backed by an AI audit that finds exactly what's costing you leads before we build a single page.</p>
       <div class="hero-actions">
-        <a href="#audit" class="btn-primary" onclick="openChat()">Get Your Free Audit</a>
-        <a href="#how" class="btn-ghost">See how it works</a>
+        <a href="#pricing" class="btn-primary">See Pricing</a>
+        <a href="#audit" class="btn-ghost" onclick="openChat()">Get a free audit first</a>
       </div>
     </div>
     <div class="hero-right">
@@ -1263,54 +1320,53 @@
 <!-- MARQUEE -->
 <div class="marquee-section">
   <div class="marquee-track">
-    <div class="marquee-item"><span>✦</span> AEO Authority Audit</div>
+    <div class="marquee-item"><span>✦</span> Premium Website Creation</div>
+    <div class="marquee-item"><span>✦</span> Website Redesign</div>
+    <div class="marquee-item"><span>✦</span> AI-Powered Site Audit</div>
+    <div class="marquee-item"><span>✦</span> Conversion-Focused Design</div>
     <div class="marquee-item"><span>✦</span> Competitor Gap Analysis</div>
-    <div class="marquee-item"><span>✦</span> Category of One Positioning</div>
-    <div class="marquee-item"><span>✦</span> AI Search Visibility</div>
-    <div class="marquee-item"><span>✦</span> Conversion Intelligence</div>
-    <div class="marquee-item"><span>✦</span> Brand Pivot Strategy</div>
-    <div class="marquee-item"><span>✦</span> Website Conversion Rebuild</div>
-    <div class="marquee-item"><span>✦</span> AEO Authority Audit</div>
+    <div class="marquee-item"><span>✦</span> AEO & SEO Optimization</div>
+    <div class="marquee-item"><span>✦</span> Premium Website Creation</div>
+    <div class="marquee-item"><span>✦</span> Website Redesign</div>
+    <div class="marquee-item"><span>✦</span> AI-Powered Site Audit</div>
+    <div class="marquee-item"><span>✦</span> Conversion-Focused Design</div>
     <div class="marquee-item"><span>✦</span> Competitor Gap Analysis</div>
-    <div class="marquee-item"><span>✦</span> Category of One Positioning</div>
-    <div class="marquee-item"><span>✦</span> AI Search Visibility</div>
-    <div class="marquee-item"><span>✦</span> Conversion Intelligence</div>
-    <div class="marquee-item"><span>✦</span> Brand Pivot Strategy</div>
+    <div class="marquee-item"><span>✦</span> AEO & SEO Optimization</div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="section-label">How it works</div>
-  <h2 class="section-title">Intelligence that<br/><em>acts fast.</em></h2>
+  <h2 class="section-title">Built different.<br/><em>Proven faster.</em></h2>
   <div class="how-grid">
     <div class="how-steps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-content">
-          <h3>Drop your URL</h3>
-          <p>Enter your website into our audit engine. No forms, no lengthy onboarding — just your URL and 30 seconds.</p>
+          <h3>Tell us about your business</h3>
+          <p>No website? No problem. We start with a strategy conversation — your goals, your market, and who you're trying to reach. That's all we need to get started.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-content">
-          <h3>The scan runs deep</h3>
-          <p>Our agents analyze your positioning, messaging, AI scannability, and competitive landscape simultaneously — in real time.</p>
+          <h3>Run a free audit <span style="color:var(--muted);font-size:0.75em;font-family:var(--font-body);font-weight:300;letter-spacing:0;">(if you already have a site)</span></h3>
+          <p>Have an existing site? Drop it into our AI engine. In 30 seconds it surfaces the exact gap costing you leads — so we build the new one around what actually matters.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-content">
-          <h3>You get the signal</h3>
-          <p>We surface your primary gap — the one thing quietly bleeding your leads — with the precision of a consultant who spent hours on your site.</p>
+          <h3>We build <span style="color:var(--muted);font-size:0.85em;">/</span> Rebuild</h3>
+          <p>Every site we deliver is engineered around your specific market and messaging — not a template, not a guess. A conversion machine built from real intelligence.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">04</div>
         <div class="step-content">
-          <h3>Your roadmap is ready</h3>
-          <p>A full growth roadmap is prepared for you. One conversation is all it takes to bridge the gap and become the only answer in your market.</p>
+          <h3>Review, refine, go live</h3>
+          <p>You get the first version fast. 5 rounds of revisions are included — we don't stop until it's right. Then you go live and leads follow.</p>
         </div>
       </div>
     </div>
@@ -1368,82 +1424,83 @@
       <a href="#audit" class="pricing-btn pricing-btn-outline" onclick="openChat()">Start Free Audit</a>
     </div>
 
-    <!-- Tier 1.5 -->
-    <div class="pricing-card">
+    <!-- Tier 2 -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
       <div class="pricing-tier">Tier 02</div>
-      <div class="pricing-name">Website Conversion Rebuild</div>
+      <div class="pricing-name">Website Creation</div>
       <div class="pricing-price">
         <div class="pricing-amount">$997<span> one-time</span></div>
       </div>
       <ul class="pricing-features">
-        <li>Full premium website redesign</li>
-        <li>Conversion-focused layout & copy</li>
-        <li>Mobile optimized & fast-loading</li>
-        <li>AEO-ready structure & metadata</li>
-        <li>Built to close — not just look good</li>
-      </ul>
-      <a href="#contact" class="pricing-btn pricing-btn-outline">Book a Strategy Call</a>
-      <div class="pricing-learn">
-        <button class="pricing-learn-toggle" onclick="toggleLearn(this)">Learn more <span class="arrow">▼</span></button>
-        <div class="pricing-learn-body">Perfect if your brand identity is solid but your website is outdated, clunky, or losing visitors before they convert. We redesign it from the ground up — built for speed, trust, and leads. No fluff, no template — a site that works as hard as you do.
-        </div>
-      </div>
-    </div>
-
-    <!-- Tier 2 -->
-    <div class="pricing-card featured">
-      <div class="pricing-badge">Most Popular</div>
-      <div class="pricing-tier">Tier 03</div>
-      <div class="pricing-name">Brand Pivot Setup</div>
-      <div class="pricing-price">
-        <div class="pricing-amount">$2,500<span> one-time</span></div>
-      </div>
-      <ul class="pricing-features">
-        <li>Premium website build</li>
-        <li>Full Content Vault (20+ assets)</li>
-        <li>GMB & AEO optimization</li>
-        <li>Lead tracking pipeline</li>
-        <li>Category of One positioning</li>
+        <li>Full premium website built from scratch</li>
+        <li>Conversion-focused layout &amp; copy</li>
+        <li>Mobile optimized &amp; fast-loading</li>
+        <li>5 revisions included after first delivery</li>
+        <li>Additional changes beyond 5 — $45/hr</li>
       </ul>
       <a href="#contact" class="pricing-btn pricing-btn-filled">Book a Strategy Call</a>
       <div class="pricing-learn">
         <button class="pricing-learn-toggle" onclick="toggleLearn(this)">Learn more <span class="arrow">▼</span></button>
-        <div class="pricing-learn-body">The full repositioning package. We rebuild your brand from the positioning up — new website, 20+ content assets, Google Business optimization, and a lead pipeline that captures and tracks every prospect. Built for businesses ready to become the only answer in their market.
+        <div class="pricing-learn-body">We build your site from the ground up — conversion-focused, fast, and built to close. Once the first version is delivered, you get 5 rounds of revisions included. Any changes beyond that are billed at $45/hr, keeping things fair and flexible.
         </div>
       </div>
     </div>
 
     <!-- Tier 3 -->
     <div class="pricing-card">
-      <div class="pricing-tier">Tier 04</div>
-      <div class="pricing-name">Dominance Retainer</div>
+      <div class="pricing-badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--border);">Coming Soon</div>
+      <div class="pricing-tier">Tier 03</div>
+      <div class="pricing-name">AEO &amp; SEO Optimization</div>
       <div class="pricing-price">
-        <div class="pricing-amount">$1,500<span> / month</span></div>
+        <div class="pricing-amount" style="font-size:32px;color:var(--muted);">TBA</div>
       </div>
       <ul class="pricing-features">
-        <li>Weekly AEO content engine</li>
-        <li>Paid ad management</li>
-        <li>Monthly ROI audits</li>
-        <li>Continuous strategy refinements</li>
-        <li>Priority access & reporting</li>
+        <li>Answer Engine Optimization (AEO)</li>
+        <li>AI search visibility — ChatGPT, Perplexity</li>
+        <li>On-page &amp; technical SEO audit</li>
+        <li>Content structured for AI discovery</li>
+        <li>Ongoing ranking &amp; visibility reports</li>
       </ul>
-      <a href="#contact" class="pricing-btn pricing-btn-outline">Book a Strategy Call</a>
+      <a class="pricing-btn pricing-btn-outline" style="opacity:0.4;pointer-events:none;cursor:not-allowed;">Notify Me</a>
       <div class="pricing-learn">
         <button class="pricing-learn-toggle" onclick="toggleLearn(this)">Learn more <span class="arrow">▼</span></button>
-        <div class="pricing-learn-body">For businesses serious about sustained growth. We run your AEO content engine weekly, manage your paid ads, audit your ROI monthly, and continuously refine your strategy. You focus on delivering — we handle making sure people find you and choose you.
+        <div class="pricing-learn-body">This tier is in development. It will cover full AEO and SEO optimization — structuring your content so AI search engines like ChatGPT and Perplexity recommend your business over competitors. Stay tuned for launch details.
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- Tier 4 -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Tier 04</div>
+      <div class="pricing-name">Website Redesign</div>
+      <div class="pricing-price">
+        <div class="pricing-amount">$697<span> one-time</span></div>
+      </div>
+      <ul class="pricing-features">
+        <li>Full redesign of your existing site</li>
+        <li>Conversion &amp; trust signal overhaul</li>
+        <li>Mobile optimized &amp; fast-loading</li>
+        <li>5 revisions included after first delivery</li>
+        <li>Additional changes beyond 5 — $45/hr</li>
+      </ul>
+      <a href="#contact" class="pricing-btn pricing-btn-outline">Book a Strategy Call</a>
+      <div class="pricing-learn">
+        <button class="pricing-learn-toggle" onclick="toggleLearn(this)">Learn more <span class="arrow">▼</span></button>
+        <div class="pricing-learn-body">Already have a website but it's not converting? We take what you have, strip out what's hurting you, and rebuild it into something that actually closes. Same revision policy as Tier 02 — 5 rounds included, $45/hr after that.
+        </div>
+      </div>
+    </div>
+
+    </div>
 </section>
 
 <!-- CTA / CONTACT -->
 <section id="contact" class="cta-section">
   <div class="cta-section-bg"></div>
-  <h2 class="cta-headline">Ready to become<br/>the <em>only answer?</em></h2>
-  <p class="cta-sub">Start with the free audit — or reach out directly. No pressure, no pitch decks. Just a sharp 10-minute conversation about your growth gap.</p>
-  <a href="#audit" class="btn-primary" onclick="openChat()">Get Your Free Audit</a>
+  <h2 class="cta-headline">Ready for a site<br/>that <em>closes?</em></h2>
+  <p class="cta-sub">Start with a free audit to see exactly what your current site is missing — or reach out directly to talk about building something new.</p>
+  <a href="#pricing" class="btn-primary">See Pricing</a>
   <div class="contact-methods">
     <a href="mailto:hello@zerotrope.co" class="contact-btn contact-btn-email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
@@ -1481,7 +1538,7 @@
       <button class="chat-close" onclick="closeChat()">✕</button>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-msg chat-msg-bot">Drop your website URL below and I'll run a free intelligence audit — I'll surface the #1 gap costing you leads right now.</div>
+      <div class="chat-msg chat-msg-bot">Drop your website URL below and I'll run a free AI audit — I'll surface the #1 gap costing you leads, then we can talk about building something that actually converts.</div>
     </div>
     <div class="chat-input-area">
       <input type="text" class="chat-input" id="chatInput" placeholder="yourwebsite.com" />
@@ -1496,17 +1553,7 @@
 </div>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
-    }, 80);
-  });
+  // Custom cursor disabled for compatibility
 
   // Nav scroll
   window.addEventListener('scroll', () => {
@@ -1615,6 +1662,104 @@
     });
   }
 
+
+  async function submitLead(jobId, url) {
+    const name = document.getElementById('leadName').value.trim();
+    const email = document.getElementById('leadEmail').value.trim();
+    const btn = document.getElementById('leadSubmit');
+
+    if (!name || !email) {
+      alert('Please enter your name and email.');
+      return;
+    }
+    if (!email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(`${PIPELINE_URL}/deliver`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
+        body: JSON.stringify({ job_id: jobId, name, email })
+      });
+      const data = await res.json();
+
+      // Remove the form
+      const form = document.querySelector('.chat-lead-form');
+      if (form) form.remove();
+      const teaser = document.querySelectorAll('.chat-msg-bot');
+      if (teaser.length) teaser[teaser.length - 1].remove();
+
+      const messages = document.getElementById('chatMessages');
+
+      // Now reveal the full Hook
+      const hook = window._pendingHook || '';
+      const fullText = hook + '\n\nReach us at architect@zerotrope.co to get your full report.';
+
+      const botMsg = document.createElement('div');
+      botMsg.className = 'chat-msg chat-msg-bot';
+      botMsg.style.whiteSpace = 'pre-line';
+      botMsg.textContent = fullText;
+      messages.appendChild(botMsg);
+
+      // Email confirmation
+      const confirm = document.createElement('div');
+      confirm.style.cssText = 'font-size:11px;color:var(--accent);letter-spacing:0.08em;margin-top:4px;padding:0 4px;';
+      confirm.textContent = data.email_sent ? '✓ Full report sent to ' + email : '✓ Report ready — check architect@zerotrope.co if email delayed';
+      messages.appendChild(confirm);
+
+      // Copy button
+      const actions = document.createElement('div');
+      actions.className = 'chat-msg-actions';
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'chat-copy-btn';
+      copyBtn.innerHTML = '⎘ Copy';
+      copyBtn.onclick = () => copyAuditResponse(copyBtn, fullText);
+      actions.appendChild(copyBtn);
+      messages.appendChild(actions);
+
+      // Contact buttons
+      const contactBlock = document.createElement('div');
+      contactBlock.className = 'chat-contact-btns';
+      contactBlock.innerHTML = `
+        <div class="chat-contact-btns-label">Ready to close the gap?</div>
+        <div class="chat-contact-row">
+          <a href="mailto:architect@zerotrope.co?subject=Growth Roadmap Request&body=Hi, I just received my Zerotrope audit and I'd love to see the full report." class="chat-contact-link primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+            Email us
+          </a>
+        </div>
+        <div class="chat-contact-row">
+          <a href="https://instagram.com/zerotrope" target="_blank" class="chat-contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            DM on Instagram
+          </a>
+          <a href="https://x.com/zerotropeco" target="_blank" class="chat-contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.858L1.255 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            DM on X
+          </a>
+        </div>
+        <div class="chat-contact-row">
+          <a class="chat-contact-link soon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Book a call — coming soon
+          </a>
+        </div>
+      `;
+      messages.appendChild(contactBlock);
+      messages.scrollTop = messages.scrollHeight;
+
+    } catch(err) {
+      btn.disabled = false;
+      btn.textContent = 'Send My Free Report →';
+      alert('Something went wrong. Please try again.');
+    }
+  }
+
   function toggleLearn(btn) {
     btn.classList.toggle('open');
     const body = btn.nextElementSibling;
@@ -1625,8 +1770,18 @@
   // ZEROTROPE CONFIG — edit config.js to update the tunnel URL
   // ─────────────────────────────────────────────────
   const API_KEY = 'ZEROTROPE_SECURE_9922';
-  const PIPELINE_URL = window.ZEROTROPE_PIPELINE_URL || 'https://extract-quote-game-induced.trycloudflare.com';
+  const PIPELINE_URL = window.ZEROTROPE_PIPELINE_URL || 'https://api.zerotrope.co';
   // ─────────────────────────────────────────────────
+
+  const PROGRESS_STAGES = [
+    "Scanning homepage...",
+    "Crawling subpages...",
+    "Extracting CTAs and pricing signals...",
+    "Running gap analysis — Pass 1...",
+    "Validating findings — Pass 2...",
+    "Generating your Hook...",
+    "Almost done..."
+  ];
 
   async function sendAudit() {
     const input = document.getElementById('chatInput');
@@ -1641,107 +1796,84 @@
     messages.appendChild(userMsg);
     input.value = '';
 
+    // Typing indicator with live progress label
+    const typingWrap = document.createElement('div');
+    typingWrap.style.cssText = 'display:flex;flex-direction:column;gap:6px;align-self:flex-start;';
     const typing = document.createElement('div');
     typing.className = 'chat-typing';
     typing.style.display = 'flex';
     typing.innerHTML = '<span></span><span></span><span></span>';
-    messages.appendChild(typing);
+    const progressLabel = document.createElement('div');
+    progressLabel.style.cssText = 'font-size:11px;color:var(--muted);letter-spacing:0.08em;';
+    progressLabel.textContent = PROGRESS_STAGES[0];
+    typingWrap.appendChild(typing);
+    typingWrap.appendChild(progressLabel);
+    messages.appendChild(typingWrap);
     messages.scrollTop = messages.scrollHeight;
 
+    let stageIdx = 0;
+    const stageInterval = setInterval(() => {
+      stageIdx = Math.min(stageIdx + 1, PROGRESS_STAGES.length - 1);
+      progressLabel.textContent = PROGRESS_STAGES[stageIdx];
+    }, 12000);
+
     try {
-      // Step 1: Fire off the audit and get a job_id immediately
-      const startRes = await fetch(`${PIPELINE_URL}/audit`, {
+      // Submit job
+      const submitRes = await fetch(`${PIPELINE_URL}/audit`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': API_KEY,
-          'ngrok-skip-browser-warning': 'true'
-        },
+        headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
         body: JSON.stringify({ input_text: userInput })
       });
+      const submitData = await submitRes.json();
+      const jobId = submitData.job_id;
 
-      const startData = await startRes.json();
-      if (!startData.job_id) throw new Error('No job ID returned');
-
-      const jobId = startData.job_id;
-
-      // Step 2: Poll /status/{job_id} every 3 seconds until done (max 3 minutes)
+      // Poll for result
       let data = null;
       for (let i = 0; i < 60; i++) {
         await new Promise(r => setTimeout(r, 3000));
-        try {
-          const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
-            headers: { 'x-api-key': API_KEY, 'ngrok-skip-browser-warning': 'true' }
-          });
-          const pollData = await pollRes.json();
-          if (pollData.status !== 'pending') {
-            data = pollData;
-            break;
-          }
-        } catch(pollErr) {
-          // single poll failed — keep waiting, don't abort
-          console.warn('Poll attempt failed, retrying...', pollErr);
+        const pollRes = await fetch(`${PIPELINE_URL}/status/${jobId}`, {
+          headers: { 'x-api-key': API_KEY }
+        });
+        const pollData = await pollRes.json();
+        if (pollData.status !== 'pending') {
+          data = pollData;
+          break;
         }
       }
 
-      if (!data) throw new Error('Audit timed out after 100 seconds');
+      clearInterval(stageInterval);
+      typingWrap.remove();
 
-      typing.remove();
+      if (data && data.status === 'success') {
+        window._pendingHook = data.narrative_summary;
+        window._pendingJobId = jobId;
 
-      const botMsg = document.createElement('div');
-      botMsg.className = 'chat-msg chat-msg-bot';
-      botMsg.style.whiteSpace = 'pre-line';
+        const teaserMsg = document.createElement('div');
+        teaserMsg.className = 'chat-msg chat-msg-bot';
+        teaserMsg.textContent = 'Your audit is complete. Enter your name and email below to receive the full intelligence report.';
+        messages.appendChild(teaserMsg);
 
-      const fullText = data.status === 'success'
-        ? data.narrative_summary + '\n\nReach us at architect@zerotrope.co to get your full report.'
-        : 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
-
-      botMsg.textContent = fullText;
-      messages.appendChild(botMsg);
-
-      if (data.status === 'success') {
-        // Copy button
-        const actions = document.createElement('div');
-        actions.className = 'chat-msg-actions';
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'chat-copy-btn';
-        copyBtn.innerHTML = '⎘ Copy';
-        copyBtn.onclick = () => copyAuditResponse(copyBtn, fullText);
-        actions.appendChild(copyBtn);
-        messages.appendChild(actions);
-
-        // Contact buttons
-        const contactBlock = document.createElement('div');
-        contactBlock.className = 'chat-contact-btns';
-        contactBlock.innerHTML = `
-          <div class="chat-contact-btns-label">Ready to close the gap?</div>
-          <div class="chat-contact-row">
-            <a href="mailto:architect@zerotrope.co?subject=Growth Roadmap Request&body=Hi, I just ran the Zerotrope audit and I'd love to see the full report." class="chat-contact-link primary">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-              Email us
-            </a>
-          </div>
-          <div class="chat-contact-row">
-            <a href="https://instagram.com/zerotrope" target="_blank" class="chat-contact-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-              DM on Instagram
-            </a>
-            <a href="https://x.com/zerotropeco" target="_blank" class="chat-contact-link">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.858L1.255 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              DM on X
-            </a>
-          </div>
-          <div class="chat-contact-row">
-            <a class="chat-contact-link soon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Book a call — coming soon
-            </a>
-          </div>
+        const form = document.createElement('div');
+        form.className = 'chat-lead-form';
+        form.id = 'leadCaptureForm';
+        form.innerHTML = `
+          <div class="chat-lead-title">Get your free report</div>
+          <div class="chat-lead-subtitle">We'll send the full audit to your inbox — no spam, ever.</div>
+          <input type="text" class="chat-lead-input" id="leadName" placeholder="Your name" />
+          <input type="email" class="chat-lead-input" id="leadEmail" placeholder="Your email address" />
+          <button class="chat-lead-submit" id="leadSubmit" onclick="submitLead('${jobId}', '${userInput.replace(/'/g, "\'")}')">Send My Free Report →</button>
         `;
-        messages.appendChild(contactBlock);
+        messages.appendChild(form);
+      } else {
+        const errMsg = document.createElement('div');
+        errMsg.className = 'chat-msg chat-msg-bot';
+        errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
+        messages.appendChild(errMsg);
       }
+
     } catch(err) {
-      typing.remove();
+      clearInterval(stageInterval);
+      typingWrap.remove();
       const errMsg = document.createElement('div');
       errMsg.className = 'chat-msg chat-msg-bot';
       errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';

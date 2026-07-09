@@ -1,10 +1,10 @@
-from utils.ollama_client import OllamaClient
+from utils.ai_client import AIClient
 import base64
 
 class BrandAgent:
     def __init__(self):
-        self.client = OllamaClient()
-        self.vision_client = OllamaClient(model="llama3.2-vision:latest")
+        self.client = AIClient()
+        self.vision_client = AIClient()
 
     def encode_image(self, image_path):
         with open(image_path, "rb") as image_file:

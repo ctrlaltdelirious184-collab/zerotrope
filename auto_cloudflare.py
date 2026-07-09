@@ -1,23 +1,22 @@
 import subprocess
 import time
 import re
+import os
 
 def auto_start_cloudflare():
     print("Killing lingering tunnels...")
     subprocess.run(["taskkill", "/F", "/IM", "cloudflared.exe"], capture_output=True)
 
     print("Starting fresh Cloudflare Tunnel...")
-    # Launch cloudflared and capture stderr (where it prints the URL)
     process = subprocess.Popen(
-        ["cloudflared.exe", "tunnel", "--url", "http://localhost:8000"], 
-        stderr=subprocess.PIPE, 
+        ["cloudflared.exe", "tunnel", "--url", "http://localhost:8000"],
+        stderr=subprocess.PIPE,
         text=True
     )
 
     url = None
     print("Waiting for Cloudflare to assign a URL...")
-    
-    # Tail the logs in real-time until we spot the URL
+
     for line in process.stderr:
         match = re.search(r"https://[a-zA-Z0-9-]+\.trycloudflare\.com", line)
         if match:
@@ -25,32 +24,40 @@ def auto_start_cloudflare():
             break
 
     if url:
-        print(f"\n✅ SECURE URL ACQUIRED: {url}")
-        
-        # Patch vercel.json instead of config.js
-        with open("vercel.json", "r", encoding="utf-8") as f:
-            config = f.read()
-            
-        config = re.sub(r'"destination": "https://[a-zA-Z0-9-]+\.trycloudflare\.com/\$1"', f'"destination": "{url}/$1"', config)
-        
-        with open("vercel.json", "w", encoding="utf-8") as f:
-            f.write(config)
-            
-        print("✅ vercel.json updated automatically with the proxy logic!")
-        print("🚀 Committing and pushing to GitHub to trigger Vercel deployment...")
-        
-        # Auto-Deploy to GitHub
-        subprocess.run(["git", "add", "vercel.json"])
-        subprocess.run(["git", "commit", "-m", f"Auto-sync Cloudflare Vercel Proxy"])
-        subprocess.run(["git", "push"])
-        
-        print("\n🎉 ALL DONE! Your Vercel frontend will automatically update in 30 seconds.")
-        print("⚠️  LEAVE THIS TERMINAL OPEN. If you close this, the tunnel dies.\n")
-        
-        # Keep the script alive so the tunnel doesn't close
+        print(f"\n✅ TUNNEL URL: {url}")
+
+        # Check if we have a permanent custom domain (api.zerotrope.co)
+        # If so, no need to update config.js — just report the tunnel is live
+        config_js_path = "config.js"
+        if os.path.exists(config_js_path):
+            with open(config_js_path, "r", encoding="utf-8") as f:
+                config_content = f.read()
+
+            # Only update if not using permanent domain
+            if "api.zerotrope.co" not in config_content:
+                config_content = re.sub(
+                    r"window\.ZEROTROPE_PIPELINE_URL = \'https://[^\']+\';",
+                    f"window.ZEROTROPE_PIPELINE_URL = \'{url}\';",
+                    config_content
+                )
+                with open(config_js_path, "w", encoding="utf-8") as f:
+                    f.write(config_content)
+                print("✅ config.js updated with new tunnel URL.")
+
+                # Auto-push to GitHub
+                subprocess.run(["git", "add", "config.js"])
+                subprocess.run(["git", "commit", "-m", f"Auto-sync Cloudflare URL: {url}"])
+                subprocess.run(["git", "push"])
+                print("🚀 Pushed to GitHub — Vercel will update in ~30 seconds.")
+            else:
+                print("✅ Permanent domain active (api.zerotrope.co) — no config update needed.")
+        else:
+            print("⚠️  config.js not found in current directory.")
+
+        print("\n⚠️  LEAVE THIS TERMINAL OPEN. Closing it kills the tunnel.\n")
         process.wait()
     else:
-        print("❌ Failed to grab Cloudflare URL. Has Cloudflare crashed?")
+        print("❌ Failed to grab Cloudflare URL. Did cloudflared crash?")
 
 if __name__ == "__main__":
     auto_start_cloudflare()

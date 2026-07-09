@@ -1,9 +1,9 @@
-from utils.ollama_client import OllamaClient
+from utils.ai_client import AIClient
 import os
 
 class WebsiteAgent:
     def __init__(self):
-        self.client = OllamaClient()
+        self.client = AIClient()
 
     def run(self, business_name, brand_data, audience_data, content_data, intel_data=None):
         """

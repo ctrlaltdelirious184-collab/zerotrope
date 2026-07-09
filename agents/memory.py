@@ -1,10 +1,10 @@
 import json
 import os
-from utils.ollama_client import OllamaClient
+from utils.ai_client import AIClient
 
 class MemoryAgent:
     def __init__(self, memory_file="knowledge/agency_memory.json"):
-        self.client = OllamaClient()
+        self.client = AIClient()
         self.memory_file = memory_file
 
     def run(self, business_name, intel_data, brand_data, strategy_data):
