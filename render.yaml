@@ -1,0 +1,12 @@
+services:
+  zerotrope-bridge:
+    type: web
+    name: zerotrope-bridge
+    env: python
+    buildCommand: "pip install -r requirements.txt && playwright install --with-deps chromium"
+    startCommand: "uvicorn bridge_api:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: AI_PROVIDER
+        value: gemini
+      - key: OLLAMA_MODEL
+        value: ""

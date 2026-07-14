@@ -1827,9 +1827,9 @@
   <p class="cta-sub">Start with a free audit to see exactly what your current site is missing — or reach out directly to talk about building something new.</p>
   <a href="#pricing" class="btn-primary">See Pricing</a>
   <div class="contact-methods">
-    <a href="mailto:hello@zerotrope.co" class="contact-btn contact-btn-email">
+    <a href="mailto:architect.zerotrope@gmail.com" class="contact-btn contact-btn-email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-      hello@zerotrope.co
+      architect.zerotrope@gmail.com
     </a>
     <a href="https://instagram.com/zerotrope" target="_blank" class="contact-btn contact-btn-ig">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -1854,20 +1854,20 @@
   <div class="chat-panel" id="chatPanel">
     <div class="chat-header">
       <div class="chat-header-info">
-        <div class="chat-dot"></div>
+        <div class="chat-dot" style="background:#9CA3AF;"></div>
         <div>
           <div class="chat-header-title">Zerotrope Audit</div>
-          <div class="chat-header-sub">Free intelligence scan</div>
+          <div class="chat-header-sub">Currently unavailable</div>
         </div>
       </div>
       <button class="chat-close" onclick="closeChat()">✕</button>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-msg chat-msg-bot">Drop your website URL below and I'll run a free AI audit — I'll surface the #1 gap costing you leads, then we can talk about building something that actually converts.</div>
+      <div class="chat-msg chat-msg-bot">Our free audit tool is offline for an upgrade right now — check back soon. In the meantime, reach out directly at <a href="mailto:architect.zerotrope@gmail.com" style="color:inherit;text-decoration:underline;">architect.zerotrope@gmail.com</a> and we'll take a look personally.</div>
     </div>
     <div class="chat-input-area">
-      <input type="text" class="chat-input" id="chatInput" placeholder="yourwebsite.com" />
-      <button class="chat-send" onclick="sendAudit()">→</button>
+      <input type="text" class="chat-input" id="chatInput" placeholder="Audit tool unavailable" disabled style="opacity:0.5;cursor:not-allowed;" />
+      <button class="chat-send" onclick="sendAudit()" disabled style="opacity:0.4;cursor:not-allowed;">→</button>
     </div>
   </div>
   <button class="chat-toggle" onclick="toggleChat()">
@@ -1885,17 +1885,13 @@
     document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  // Chat
+  // Chat — audit feature temporarily disabled
   function toggleChat() {
     const panel = document.getElementById('chatPanel');
     panel.classList.toggle('open');
-    if (panel.classList.contains('open')) {
-      document.getElementById('chatInput').focus();
-    }
   }
   function openChat() {
     document.getElementById('chatPanel').classList.add('open');
-    setTimeout(() => document.getElementById('chatInput').focus(), 100);
   }
   function closeChat() {
     document.getElementById('chatPanel').classList.remove('open');
@@ -2023,7 +2019,7 @@
 
       // Now reveal the full Hook
       const hook = window._pendingHook || '';
-      const fullText = hook + '\n\nReach us at architect@zerotrope.co to get your full report.';
+      const fullText = hook + '\n\nReach us at architect.zerotrope@gmail.com to get your full report.';
 
       const botMsg = document.createElement('div');
       botMsg.className = 'chat-msg chat-msg-bot';
@@ -2034,7 +2030,7 @@
       // Email confirmation
       const confirm = document.createElement('div');
       confirm.style.cssText = 'font-size:11px;color:var(--accent);letter-spacing:0.08em;margin-top:4px;padding:0 4px;';
-      confirm.textContent = data.email_sent ? '✓ Full report sent to ' + email : '✓ Report ready — check architect@zerotrope.co if email delayed';
+      confirm.textContent = data.email_sent ? '✓ Full report sent to ' + email : '✓ Report ready — check architect.zerotrope@gmail.com if email delayed';
       messages.appendChild(confirm);
 
       // Copy button
@@ -2053,7 +2049,7 @@
       contactBlock.innerHTML = `
         <div class="chat-contact-btns-label">Ready to close the gap?</div>
         <div class="chat-contact-row">
-          <a href="mailto:architect@zerotrope.co?subject=Growth Roadmap Request&body=Hi, I just received my Zerotrope audit and I'd love to see the full report." class="chat-contact-link primary">
+          <a href="mailto:architect.zerotrope@gmail.com?subject=Growth Roadmap Request&body=Hi, I just received my Zerotrope audit and I'd love to see the full report." class="chat-contact-link primary">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
             Email us
           </a>
@@ -2109,6 +2105,7 @@
   ];
 
   async function sendAudit() {
+    return; // Audit feature temporarily disabled
     const input = document.getElementById('chatInput');
     const userInput = input.value.trim();
     if (!userInput) return;
@@ -2192,7 +2189,7 @@
       } else {
         const errMsg = document.createElement('div');
         errMsg.className = 'chat-msg chat-msg-bot';
-        errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
+        errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect.zerotrope@gmail.com';
         messages.appendChild(errMsg);
       }
 
@@ -2201,7 +2198,7 @@
       typingWrap.remove();
       const errMsg = document.createElement('div');
       errMsg.className = 'chat-msg chat-msg-bot';
-      errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect@zerotrope.co';
+      errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect.zerotrope@gmail.com';
       messages.appendChild(errMsg);
     }
     messages.scrollTop = messages.scrollHeight;

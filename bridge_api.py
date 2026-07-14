@@ -1,9 +1,11 @@
-from fastapi import FastAPI, HTTPException, Header, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Header, BackgroundTasks, Request
 from pydantic import BaseModel
 import uuid
 import os
 import httpx
 import threading
+import socket
+import time
 
 # Import core Zerotrope logic
 from agents.research import ResearchAgent
@@ -141,19 +143,83 @@ def run_audit_job(job_id: str, input_text: str):
         }
 
 
+# SSRF / Private IP protection
+def is_private_ip(url: str) -> bool:
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(url)
+        # Handle cases where url might not have http/https prefix for parsing netloc
+        hostname = parsed.netloc or parsed.path.split("/")[0]
+        # Clean port if any (e.g. localhost:8000)
+        hostname = hostname.split(":")[0]
+        
+        # Get IP address
+        ip = socket.gethostbyname(hostname)
+        parts = [int(x) for x in ip.split(".")]
+        if len(parts) != 4:
+            return True
+        
+        # 127.0.0.0/8 (Loopback)
+        if parts[0] == 127:
+            return True
+        # 10.0.0.0/8 (Private Class A)
+        if parts[0] == 10:
+            return True
+        # 172.16.0.0/12 (Private Class B)
+        if parts[0] == 172 and (16 <= parts[1] <= 31):
+            return True
+        # 192.168.0.0/16 (Private Class C)
+        if parts[0] == 192 and parts[1] == 168:
+            return True
+        # 169.254.0.0/16 (Link Local)
+        if parts[0] == 169 and parts[1] == 254:
+            return True
+        # 0.0.0.0 (Unspecified)
+        if ip == "0.0.0.0":
+            return True
+            
+        return False
+    except Exception:
+        # If hostname resolution fails, it is safer to reject it as malformed/private
+        return True
+
+# IP Rate limiter (3 submissions per hour)
+ip_history: dict = {}
+
+def rate_limit_ip(ip: str):
+    now = time.time()
+    if ip not in ip_history:
+        ip_history[ip] = []
+    # Retain timestamps in the last 1 hour
+    ip_history[ip] = [t for t in ip_history[ip] if now - t < 3600]
+    
+    if len(ip_history[ip]) >= 3:
+        raise HTTPException(status_code=429, detail="Too many audits requested from this IP. Limit is 3 per hour.")
+    ip_history[ip].append(now)
+
 # URL dedup cache: url -> (job_id, timestamp)
 url_cache: dict = {}
 
 @app.post("/audit", response_model=AuditJobResponse)
-def trigger_audit(request: AuditRequest, x_api_key: str = Header(None)):
+def trigger_audit(audit_req: AuditRequest, request: Request, x_api_key: str = Header(None)):
     # Security gate
     if x_api_key != API_KEY:
         raise HTTPException(status_code=403, detail="Unauthorized")
 
+    # 1. Rate Limit Check
+    client_ip = request.client.host if request.client else "unknown"
+    rate_limit_ip(client_ip)
+
+    # 2. SSRF Protection check (only on URL inputs)
+    input_stripped = audit_req.input_text.strip().lower()
+    if input_stripped.startswith("http") or "." in input_stripped.split("/")[0]:
+        if is_private_ip(audit_req.input_text):
+            raise HTTPException(status_code=400, detail="SSRF protection: Target URL resolves to a private or local IP range.")
+
     cleanup_job_store()
 
     # Duplicate URL protection — reuse job if same URL submitted within 30 seconds
-    url_key = request.input_text.strip().lower()
+    url_key = audit_req.input_text.strip().lower()
     if url_key in url_cache:
         existing_job_id, ts = url_cache[url_key]
         if time.time() - ts < 30:
@@ -163,7 +229,7 @@ def trigger_audit(request: AuditRequest, x_api_key: str = Header(None)):
     job_id = str(uuid.uuid4())
     job_store[job_id] = {"_ts": time.time()}  # mark as pending with timestamp
     url_cache[url_key] = (job_id, time.time())
-    thread = threading.Thread(target=run_audit_job, args=(job_id, request.input_text), daemon=True)
+    thread = threading.Thread(target=run_audit_job, args=(job_id, audit_req.input_text), daemon=True)
     thread.start()
     return AuditJobResponse(job_id=job_id, status="pending")
 
