@@ -1,0 +1,69 @@
+===============================================================================
+                     AI MARKETING & PROSPECTING DISCORD BOT
+                             COMMAND REFERENCE MANUAL
+===============================================================================
+
+-------------------------------------------------------------------------------
+1. LEAD GENERATION & PROSPECTING COMMANDS
+-------------------------------------------------------------------------------
+
+!leads
+    Description: Displays the help menu for all prospecting and auditing commands.
+    Usage:       !leads
+
+!prospect
+    Description: Runs the FULL ONE-SHOT PIPELINE. Automatically harvests target
+                 business websites for a given niche/location matrix and 
+                 immediately audits them across Design, Mobile, Performance, SEO, 
+                 and Trust metrics. Generates a summary embed, full CSV report,
+                 and interactive HTML dashboard directly in Discord.
+    Usage:       !prospect --state GA --niches "dentist, plumber, roofing contractor"
+                 !prospect --locations "Atlanta GA, Savannah GA" --niches "lawyer, chiropractor"
+
+!harvest
+    Description: Discovers local business website URLs using search engine matrices
+                 (Google, OpenStreetMap/Nominatim) while automatically filtering 
+                 out aggregator directories (Yelp, YellowPages, ZocDoc, Facebook).
+                 Saves domain list to prospects file and attaches it in Discord.
+    Usage:       !harvest --state GA --niches "dentist, plumber"
+                 !harvest --locations "Atlanta GA, Macon GA" --niches "electrician"
+                 !harvest --query "chiropractor Savannah GA"
+
+!scan
+    Description: Audits either a single target website URL OR the entire domain list 
+                 harvested from the last !harvest command. Generates a sales lead 
+                 report with scored metrics and client-facing talking points.
+    Usage:       !scan                              (Audits last harvested list)
+                 !scan thevaldostadentist.com       (Audits a single URL)
+
+!pagespeed  (Alias: !speed)
+    Description: Audits a website URL using Google's PageSpeed Insights API. 
+                 Translates technical Core Web Vitals (LCP, CLS, TBT) and scores 
+                 into plain-English talking points tailored for non-technical 
+                 business owners.
+    Usage:       !pagespeed example.com
+                 !speed targetbusiness.com
+
+-------------------------------------------------------------------------------
+2. FULL MARKETING AGENCY PIPELINE COMMANDS
+-------------------------------------------------------------------------------
+
+!audit [URL or Description]
+    Description: Triggers the full 9-agent autonomous marketing pipeline. 
+                 Creates a dedicated Discord channel for the client, performs deep
+                 market research, competitive intelligence, brand analysis, target
+                 persona creation, 90-day strategy roadmap, content vault creation,
+                 landing page architecture, and final PDF/Markdown report assembly.
+    Usage:       !audit https://example.com
+                 !audit Local roofing company in Atlanta expanding to commercial contracts
+
+Yo it's time to work again [URL or Description]
+    Description: Custom trigger phrase to initiate the 9-agent marketing pipeline.
+    Usage:       Yo it's time to work again https://example.com
+
+!stop  (Alias: !cancel)
+    Description: Cancels the active marketing pipeline execution running in the current
+                 Discord channel and cleans up workspace tasks.
+    Usage:       !stop
+
+===============================================================================

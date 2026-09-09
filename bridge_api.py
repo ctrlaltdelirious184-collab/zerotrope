@@ -239,7 +239,16 @@ def get_audit_status(job_id: str, x_api_key: str = Header(None)):
     if x_api_key != API_KEY:
         raise HTTPException(status_code=403, detail="Unauthorized")
     if job_id not in job_store:
-        raise HTTPException(status_code=404, detail="Job not found")
+        # Job is missing — either the server restarted (wiping in-memory state)
+        # or the 10-minute TTL cleanup already removed it.
+        # Return a structured "expired" payload rather than a raw 404 so the
+        # frontend can display a helpful "please resubmit" message.
+        return AuditResponse(
+            status="expired",
+            message="This audit session has expired. The server may have restarted. Please submit your URL again.",
+            narrative_summary="",
+            unique_angle=""
+        )
     result = job_store[job_id]
     if result is None or (isinstance(result, dict) and "status" not in result):
         return AuditResponse(status="pending", message="Processing...", narrative_summary="", unique_angle="")

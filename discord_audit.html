@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Website Audit & Lead Prospecting Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-red: #ef4444;
+            --border-color: #334155;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        h1 { margin: 0; font-size: 24px; color: var(--accent-blue); }
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .card h3 { margin: 0 0 8px 0; font-size: 14px; color: var(--text-muted); text-transform: uppercase; }
+        .card .number { font-size: 28px; font-weight: bold; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+        th {
+            background-color: #0f172a;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+        .badge-warning { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); border: 1px solid var(--accent-yellow); }
+        .badge-success { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+
+        .score-pill {
+            font-weight: bold;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-align: center;
+            display: inline-block;
+        }
+        .score-red { background: #450a0a; color: #fca5a5; border: 1px solid #ef4444; }
+        .score-yellow { background: #422006; color: #fde047; border: 1px solid #eab308; }
+        .score-green { background: #052e16; color: #86efac; border: 1px solid #22c55e; }
+
+        .subscore-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .subscore-grid strong { color: var(--text-main); }
+
+        summary { cursor: pointer; color: var(--accent-blue); font-size: 13px; }
+        .pitch-list {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+        .pitch-list li { margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌐 Website Quality & Lead Prospecting Dashboard</h1>
+        <span>Generated: August 06, 2026 - 11:11</span>
+    </div>
+
+    <div class="stats-cards">
+        <div class="card">
+            <h3>Total Audited Sites</h3>
+            <div class="number" style="color: var(--accent-blue);">30</div>
+        </div>
+        <div class="card">
+            <h3>High Potential Leads 🔥</h3>
+            <div class="number" style="color: var(--accent-red);">2</div>
+        </div>
+        <div class="card">
+            <h3>Medium Opportunities ⚡</h3>
+            <div class="number" style="color: var(--accent-yellow);">18</div>
+        </div>
+        <div class="card">
+            <h3>Low Priority / Modern</h3>
+            <div class="number" style="color: var(--accent-green);">10</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Domain / Target</th>
+                <th>Prospect Rating</th>
+                <th>Overall Audit Score</th>
+                <th>Sub-Category Scores</th>
+                <th>Actionable Pitch Talking Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr class="audit-row">
+            <td>
+                <strong>midtownatl.mintdentistry.com</strong><br/>
+                <small><a href="https://midtownatl.mintdentistry.com" target="_blank">https://midtownatl.mintdentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-danger">URGENT LEAD (Site Broken / Unreachable)</span></td>
+            <td><div class="score-pill score-red">0 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>0</strong></span>
+                    <span>&#128241; Mobile: <strong>0</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">0</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fca5a5">0</strong></span>
+                    <span>&#128274; Trust: <strong>0</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 2 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Website is currently unreachable or returning server error (403).</li><li>Business is losing 100% of online visitors and potential customers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>thevaldostadentist.com</strong><br/>
+                <small><a href="https://thevaldostadentist.com" target="_blank">https://thevaldostadentist.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-danger">HIGH POTENTIAL LEAD (Major Flaws / Redesign Needed)</span></td>
+            <td><div class="score-pill score-red">48 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>0</strong></span>
+                    <span>&#128241; Mobile: <strong>65</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 10 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERFLOW: Fixed pixel width containers (>900px) detected without media queries. Run !confirm for browser proof.</li><li>BROKEN CONTENT WIDGET: Empty article/blog widget detected displaying broken pagination ('1of0' / zero articles available).</li><li>[Stage 1 Pre-Filter] UNCONTAINED INPUTS: Interactive form fields positioned outside form containers. Run !confirm for viewport verification.</li><li>Lacks modern web typography (using default browser fonts), reducing brand prestige.</li><li>Missing browser favicon icon — looks unpolished and unprofessional in browser tabs.</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Lacks responsive CSS media queries — layout fails to adapt smoothly to modern tablet/mobile screens.</li><li>Uses an outdated, legacy version of jQuery (v1.x/v2.x) which has known performance and security vulnerabilities.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>atlfamilydentistry.com</strong><br/>
+                <small><a href="https://atlfamilydentistry.com" target="_blank">https://atlfamilydentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">58 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>20</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">80</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 9 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>BROKEN CONTENT WIDGET: Empty article/blog widget detected displaying broken pagination ('1of0' / zero articles available).</li><li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>10 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (22 CSS files, 12 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Missing `<h1>` header tag to define the page's primary business topic for SEO.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>ansleymidtowndental.com</strong><br/>
+                <small><a href="https://ansleymidtowndental.com" target="_blank">https://ansleymidtowndental.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">58 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>15</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">90</strong></span>
+                    <span>&#128274; Trust: <strong>75</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>BROKEN CONTENT WIDGET: Empty article/blog widget detected displaying broken pagination ('1of0' / zero articles available).</li><li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Multiple `<h1>` tags (19) diluting page keyword context.</li><li>Footer copyright displays outdated year (2021), giving visitors the impression the business is inactive.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>fidanoskidentistry.com</strong><br/>
+                <small><a href="https://fidanoskidentistry.com" target="_blank">https://fidanoskidentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">59 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>30</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">10</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">80</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>53 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Slow server response time (4.16s). Google penalizes sites taking over 3 seconds to load.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Missing `<h1>` header tag to define the page's primary business topic for SEO.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>brightsmilefamilydental.com</strong><br/>
+                <small><a href="https://brightsmilefamilydental.com" target="_blank">https://brightsmilefamilydental.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">62 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>40</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">75</strong></span>
+                    <span>&#128274; Trust: <strong>65</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Missing meta description; search engines will show random scraped page snippets.</li><li>Footer copyright displays outdated year (2018), giving visitors the impression the business is inactive.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>perimeterdentalga.com</strong><br/>
+                <small><a href="https://perimeterdentalga.com" target="_blank">https://perimeterdentalga.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">63 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>30</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">65</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 7 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>BROKEN CONTENT WIDGET: Empty article/blog widget detected displaying broken pagination ('1of0' / zero articles available).</li><li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>12 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Page title length (75 chars) is outside optimal SEO range (30-60 characters).</li><li>Missing `<h1>` header tag to define the page's primary business topic for SEO.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>dentistmariettaga.com</strong><br/>
+                <small><a href="https://dentistmariettaga.com" target="_blank">https://dentistmariettaga.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">64 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>30</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">90</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>41 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (21 CSS files, 21 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Multiple `<h1>` tags (10) diluting page keyword context.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>mysagedental.com</strong><br/>
+                <small><a href="https://mysagedental.com" target="_blank">https://mysagedental.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">65 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>35</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">85</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 7 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>BROKEN CONTENT WIDGET: Empty article/blog widget detected displaying broken pagination ('1of0' / zero articles available).</li><li>Uses legacy image formats (GIF/BMP) instead of crisp vector SVG or high-compression WebP.</li><li>5 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (20 CSS files, 29 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Page title length (76 chars) is outside optimal SEO range (30-60 characters).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>atlsedationdentistry.com</strong><br/>
+                <small><a href="https://atlsedationdentistry.com" target="_blank">https://atlsedationdentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">66 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>40</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">30</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">90</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Page response time is slightly slow (2.05s). Optimizing assets can boost conversion rates.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Multiple `<h1>` tags (8) diluting page keyword context.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>demercydental.com</strong><br/>
+                <small><a href="https://demercydental.com" target="_blank">https://demercydental.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">67 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">10</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 6 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Uses legacy image formats (GIF/BMP) instead of crisp vector SVG or high-compression WebP.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Slow server response time (4.68s). Google penalizes sites taking over 3 seconds to load.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>smyrnafamilydentistry.com</strong><br/>
+                <small><a href="https://smyrnafamilydentistry.com" target="_blank">https://smyrnafamilydentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">69 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">75</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 7 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>7 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (6 CSS files, 18 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Missing meta description; search engines will show random scraped page snippets.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>bigcreekfamilydentistry.com</strong><br/>
+                <small><a href="https://bigcreekfamilydentistry.com" target="_blank">https://bigcreekfamilydentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">70 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">30</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 6 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>Uses legacy image formats (GIF/BMP) instead of crisp vector SVG or high-compression WebP.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Page response time is slightly slow (3.89s). Optimizing assets can boost conversion rates.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>legacydentalatlanta.com</strong><br/>
+                <small><a href="https://legacydentalatlanta.com" target="_blank">https://legacydentalatlanta.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">70 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">70</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">70</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 9 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>4 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (14 CSS files, 19 JS scripts).</li><li>Uses an outdated, legacy version of jQuery (v1.x/v2.x) which has known performance and security vulnerabilities.</li><li>Page title length (83 chars) is outside optimal SEO range (30-60 characters).</li><li>Lacks Open Graph (OG) tags — when shared on social media (Facebook, LinkedIn, iMessage), links will show no thumbnail image or preview text.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>atlantadentalcenter.com</strong><br/>
+                <small><a href="https://atlantadentalcenter.com" target="_blank">https://atlantadentalcenter.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">71 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 6 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>48 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (30 CSS files, 22 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>brightworksdentistry.com</strong><br/>
+                <small><a href="https://brightworksdentistry.com" target="_blank">https://brightworksdentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">72 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">15</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 6 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Page response time is slightly slow (2.35s). Optimizing assets can boost conversion rates.</li><li>High HTTP request bottleneck (6 CSS files, 17 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>zentooth.com</strong><br/>
+                <small><a href="https://zentooth.com" target="_blank">https://zentooth.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">72 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">80</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 6 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>18 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (7 CSS files, 33 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Missing `<h1>` header tag to define the page's primary business topic for SEO.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>greatexpressions.com</strong><br/>
+                <small><a href="https://greatexpressions.com" target="_blank">https://greatexpressions.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">73 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 5 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>19 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>smyrna.mintdentistry.com</strong><br/>
+                <small><a href="https://smyrna.mintdentistry.com" target="_blank">https://smyrna.mintdentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">73 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>65</strong></span>
+                    <span>&#128241; Mobile: <strong>65</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Lacks modern web typography (using default browser fonts), reducing brand prestige.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Lacks responsive CSS media queries — layout fails to adapt smoothly to modern tablet/mobile screens.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>smilegeorgia.com</strong><br/>
+                <small><a href="https://smilegeorgia.com" target="_blank">https://smilegeorgia.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-warning">MEDIUM POTENTIAL LEAD (Modernization Opportunity)</span></td>
+            <td><div class="score-pill score-yellow">73 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>45</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 5 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>15 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>drdodge.com</strong><br/>
+                <small><a href="https://drdodge.com" target="_blank">https://drdodge.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">76 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>60</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">70</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#fde047">70</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 8 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>8 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (15 CSS files, 20 JS scripts).</li><li>Uses an outdated, legacy version of jQuery (v1.x/v2.x) which has known performance and security vulnerabilities.</li><li>Page title length (96 chars) is outside optimal SEO range (30-60 characters).</li><li>Lacks Open Graph (OG) tags — when shared on social media (Facebook, LinkedIn, iMessage), links will show no thumbnail image or preview text.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>mariettasmiles.com</strong><br/>
+                <small><a href="https://mariettasmiles.com" target="_blank">https://mariettasmiles.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">76 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>65</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>90</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 5 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Lacks modern web typography (using default browser fonts), reducing brand prestige.</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Lacks responsive CSS media queries — layout fails to adapt smoothly to modern tablet/mobile screens.</li><li>Missing Privacy Policy page (required for compliance & ad campaigns).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>piedmontperiodontics.com</strong><br/>
+                <small><a href="https://piedmontperiodontics.com" target="_blank">https://piedmontperiodontics.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">76 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>70</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>75</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 5 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (27 CSS files, 15 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li><li>Footer copyright displays outdated year (2020), giving visitors the impression the business is inactive.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>mariettacosmeticdentist.com</strong><br/>
+                <small><a href="https://mariettacosmeticdentist.com" target="_blank">https://mariettacosmeticdentist.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">77 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>reichdentalcenter.com</strong><br/>
+                <small><a href="https://reichdentalcenter.com" target="_blank">https://reichdentalcenter.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">77 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>CONTRIBUTING PATTERN: Layout relies on legacy float positioning alongside fixed dimensions, compounding mobile layout shift issues.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>trucaredentistry.com</strong><br/>
+                <small><a href="https://trucaredentistry.com" target="_blank">https://trucaredentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">77 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>55</strong></span>
+                    <span>&#128241; Mobile: <strong>65</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Lacks modern web typography (using default browser fonts), reducing brand prestige.</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Lacks responsive CSS media queries — layout fails to adapt smoothly to modern tablet/mobile screens.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>comfortdentalatlanta.com</strong><br/>
+                <small><a href="https://comfortdentalatlanta.com" target="_blank">https://comfortdentalatlanta.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">78 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>60</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">50</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>29 images are missing ALT descriptive tags (hurts image search ranking and accessibility).</li><li>Lacks interactive micro-animations or modern hover state feedback for visitors.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>sunshinesmilesdentistry.com</strong><br/>
+                <small><a href="https://sunshinesmilesdentistry.com" target="_blank">https://sunshinesmilesdentistry.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">78 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>65</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fca5a5">35</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>High HTTP request bottleneck (28 CSS files, 34 JS scripts).</li><li>URGENT: Flash/Embed technology detected, which is completely unsupported on modern web browsers.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>acefamilydental.com</strong><br/>
+                <small><a href="https://acefamilydental.com" target="_blank">https://acefamilydental.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">82 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>50</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 3 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>Excessive inline styles detected; makes visual modifications and re-branding inefficient.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        <tr class="audit-row">
+            <td>
+                <strong>reveorthodontics.com</strong><br/>
+                <small><a href="https://reveorthodontics.com" target="_blank">https://reveorthodontics.com</a></small>
+                <br/><small style="color:#64748b;font-size:11px;">&#128269; Scored with HTML analysis</small>
+            </td>
+            <td><span class="badge badge-success">LOW POTENTIAL (Site is already modern)</span></td>
+            <td><div class="score-pill score-green">82 / 100</div></td>
+            <td>
+                <div class="subscore-grid">
+                    <span>&#127912; Design: <strong>65</strong></span>
+                    <span>&#128241; Mobile: <strong>100</strong></span>
+                    <span>&#9889; Speed: <strong style="color:#fde047">65</strong></span>
+                    <span>&#128269; SEO: <strong style="color:#86efac">100</strong></span>
+                    <span>&#128274; Trust: <strong>100</strong></span>
+                    
+                </div>
+                
+            </td>
+            <td>
+                <details>
+                    <summary><strong>View 4 Sales Pitch Points</strong></summary>
+                    <ul class="pitch-list">
+                        <li>[Stage 1 Pre-Filter] POTENTIAL OVERLAP RISK: Uncontained absolute CSS positioning detected. Run !confirm to verify bounding box collisions.</li><li>No clear Call-To-Action (CTA) buttons found above or below the fold to convert visitors into phone calls/leads.</li><li>Page response time is slightly slow (2.45s). Optimizing assets can boost conversion rates.</li><li>High HTTP request bottleneck (14 CSS files, 14 JS scripts).</li>
+                    </ul>
+                </details>
+            </td>
+        </tr>
+        
+        </tbody>
+    </table>
+</body>
+</html>
