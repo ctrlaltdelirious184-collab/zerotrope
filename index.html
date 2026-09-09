@@ -2128,13 +2128,13 @@
         msg.innerHTML = `<div style="margin:10px 0;">
             <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Scan complete — your scores</div>
             <div>${scoreChip('Perf', data.scores.performance)}${scoreChip('A11y', data.scores.accessibility)}${scoreChip('Practices', data.scores.bestPractices)}${scoreChip('SEO', data.scores.seo)}</div>
-            <div style="font-size:13px;color:var(--muted);margin-top:10px;">Our deep analysis layer is briefly busy — reach us at ewiggins184@gmail.com and we'll run your full report manually.</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:10px;">Our deep analysis layer is briefly busy — reach us at architect.zerotrope@gmail.com and we'll run your full report manually.</div>
           </div>`;
         messages.appendChild(msg);
       } else {
         const errMsg = document.createElement('div');
         errMsg.className = 'chat-msg chat-msg-bot';
-        errMsg.textContent = data.error || 'Having trouble scanning right now. Reach us directly at ewiggins184@gmail.com';
+        errMsg.textContent = data.error || 'Having trouble scanning right now. Reach us directly at architect.zerotrope@gmail.com';
         messages.appendChild(errMsg);
       }
     } catch (err) {
@@ -2142,7 +2142,7 @@
       typingWrap.remove();
       const errMsg = document.createElement('div');
       errMsg.className = 'chat-msg chat-msg-bot';
-      errMsg.textContent = 'Having trouble scanning right now. Reach us directly at ewiggins184@gmail.com';
+      errMsg.textContent = 'Having trouble scanning right now. Reach us directly at architect.zerotrope@gmail.com';
       messages.appendChild(errMsg);
     }
     messages.scrollTop = messages.scrollHeight;
